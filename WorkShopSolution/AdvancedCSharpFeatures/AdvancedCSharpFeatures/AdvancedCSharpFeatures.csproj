@@ -42,8 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LINQ\LinqDemo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticClasses\Utilities.cs" />
+    <Compile Include="Threading\ThreadingDemo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
