@@ -16,9 +16,9 @@ namespace AdvancedCSharpFeatures.LINQ
             // Let's debug and see what happens
             // HINT: use Take
 
-            //IEnumerable<int> doesNothing = ;
+            IEnumerable<int> doesNothing = 5.LazyRange().Take(3);
 
-            //List<int> doesSomething = doesNothing;
+            List<int> doesSomething = doesNothing.ToList();
         }
 
         private void WeHaveLambdasHere()
@@ -27,11 +27,11 @@ namespace AdvancedCSharpFeatures.LINQ
             // Let's generate a list of 20 numbers and take only the ones that are a multiple of 5
             // Using Lambdas
 
-            // List<int> = 
+            List<int> ceva = 20.Range().Where(x => (x % 5 == 0)).ToList();
 
             // Let's make a dictionary out of our data
             List<string> attributes = new List<string> { "Nume = Petrescu", "Prenume = Alexandru", "Ocupatie = Din pacate ce facem acum" };
-            // Dictionary<string, string> myData = 
+            Dictionary<string, string> myData = attributes.ToDictionary(x => x.Split('=').First().Trim(), y => y.Split('=').Last().Trim());
         }
 
         private void LetsGoAnonymous()
@@ -39,7 +39,7 @@ namespace AdvancedCSharpFeatures.LINQ
             // Let's watch the generator in action
             List<DummyObject> victim = new DummyObjectGenerator().GiveMe(7);
 
-            // With Thos objects we want to take only the sting and the int value into a new list
+            // With Those objects we want to take only the sting and the int value into a new list
             // Use Anonymous Types
             // You can take only somethink like
             List<object> example = 5.Range().Select(x => new object()).ToList();
@@ -50,7 +50,10 @@ namespace AdvancedCSharpFeatures.LINQ
 
 
             // Let's get them
-            // var = 
+            var numeVariabila = (from x in victim
+                                 select new { x.IntValue, x.PropperString });
+
+            var query = victim.Select(x => new { x.IntValue, x.PropperString });
         }
 
         private void QuerriesInDotNet()
@@ -60,6 +63,15 @@ namespace AdvancedCSharpFeatures.LINQ
             // Take the ones that have an odd int
             // And Get a new object that has only that value
             // Sorted descending by value
+            var masina = (new DummyObjectGenerator()).GiveMe(10).
+                Where(x => (x.IntValue % 2 == 1)).
+                Select(x => new { x.IntValue }).
+                OrderBy(x => x.IntValue).FirstOrDefault(x => 3 == 2);
+
+            var frumos = from x in (new DummyObjectGenerator()).GiveMe(10)
+                         where x.IntValue % 2 == 1
+                         orderby x.IntValue
+                         select new { x.IntValue };
 
             // List<int> querry = 
 
